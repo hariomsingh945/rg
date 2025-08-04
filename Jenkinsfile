@@ -2,6 +2,29 @@ pipeline {
     agent any
 
     stages {
+        stage('Azure Login') {
+            steps {
+                withCredentials([azureServicePrincipal(
+                    credentialsId: 'azure-sp',
+                    subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID',
+                    clientIdVariable: 'ARM_CLIENT_ID',
+                    clientSecretVariable: 'ARM_CLIENT_SECRET',
+                    tenantIdVariable: 'ARM_TENANT_ID'
+                )]) {
+                    sh '''
+                    echo "🔐 Logging in to Azure using Service Principal..."
+
+                    az login --service-principal \
+                        --username $ARM_CLIENT_ID \
+                        --password $ARM_CLIENT_SECRET \
+                        --tenant $ARM_TENANT_ID
+
+                    az account set --subscription $ARM_SUBSCRIPTION_ID
+                    '''
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -39,7 +62,7 @@ pipeline {
 
     post {
         failure {
-            echo "Build failed on branch ${env.BRANCH_NAME}"
+            echo "❌ Build failed on branch ${env.BRANCH_NAME}"
         }
     }
 }
