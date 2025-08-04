@@ -1,6 +1,6 @@
 pipeline {
     agent any
-parameters {
+    parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'plan', description: 'Git branch to build')
         booleanParam(name: 'RUN_APPLY', defaultValue: false, description: 'Run Terraform apply?')
     }
