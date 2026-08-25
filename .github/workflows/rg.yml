@@ -28,4 +28,14 @@ jobs:
         shell: powershell
         run: |
           az account show
+      
+      - name: run Terraform init
+        shell: powershell
+        run: |
+          terraform init
+
+      - name: run Terraform apply
+        shell: powershell
+        run: |
+          terraform apply --auto-approve
      
