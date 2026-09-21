@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Test') {
+
+        stage('Terraform Format') {
             steps {
-                echo 'Jenkins Multibranch Pipeline is working!'
+                sh 'terraform fmt -check'
             }
         }
+
     }
 }
