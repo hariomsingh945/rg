@@ -45,7 +45,10 @@ pipeline {
         }
 
         always {
-            echo 'ALWAYS: Pipeline execution finished'
+            cleanWs()
+            echo 'cleanup the workspace'
         }
     }
+}
+
 }
