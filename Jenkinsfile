@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         AZURE_CREDS = credentials('azure-svc-azure-service-principal')
+        HARI = 'hari'
+        SANDEEP=sandeep
+        KAAVYA = "kaavya"
     }
 
     stages {
@@ -10,6 +13,9 @@ pipeline {
                 echo 'Step 1'
                 echo 'step 2'
                 echo 'Step 3'
+                echo $(KAAVYA)
+                echo $(SANDEEP)
+                echo $(HARI)
               }
     }
 
