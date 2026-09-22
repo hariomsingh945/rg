@@ -5,7 +5,7 @@ pipeline {
         stage('test squence of pipeline') {
             steps {
                 echo 'Step 1'
-                sh 'exit 1'
+                echo 'step 2'
                 echo 'Step 3'
               }
     }
