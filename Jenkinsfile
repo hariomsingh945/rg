@@ -13,9 +13,9 @@ pipeline {
                 echo 'Step 1'
                 echo 'step 2'
                 echo 'Step 3'
-                echo $(KAAVYA)
-                echo $(SANDEEP)
-                echo $(HARI)
+                echo "$KAAVYA"
+                echo '$SANDEEP'
+                echo '$HARI'
               }
     }
 
