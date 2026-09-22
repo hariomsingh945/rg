@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label "agenthari"
-    }
+    agent any
 
     stages {
         stage('terraform fmt') {
