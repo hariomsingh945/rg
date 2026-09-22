@@ -43,6 +43,9 @@ pipeline {
         failure {
             echo 'FAILURE: Pipeline failed'
         }
+        aborted {
+            echo 'ABORTED: Build was stopped'
+        }
 
         always {
             cleanWs()
