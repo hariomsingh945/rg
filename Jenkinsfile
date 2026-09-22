@@ -3,7 +3,7 @@ pipeline {
     environment {
         AZURE_CREDS = credentials('azure-svc-azure-service-principal')
         HARI = 'hari'
-        SANDEEP=sandeep
+        SANDEEP='sandeep'
         KAAVYA = "kaavya"
     }
 
