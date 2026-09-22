@@ -47,9 +47,9 @@ pipeline {
             echo 'ABORTED: Build was stopped'
         }
 
-        always {
-            cleanWs()
-            echo 'cleanup the workspace'
-        }
+        // always {
+        //     cleanWs()
+        //     echo 'cleanup the workspace'
+        // }
     }
 }
