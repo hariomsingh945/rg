@@ -4,10 +4,13 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
+        stage('terraform fmt') {
             steps {
-                echo 'Jenkins Multibranch Pipeline is working!'
+                sh 'terraform fmt'
             }
         }
+        stage('terraform validate') {
+            steps {
+                sh 'terraform validate'
     }
 }
