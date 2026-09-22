@@ -11,10 +11,18 @@ pipeline {
         stage('terraform init') {
             steps {
                 sh 'terraform init'
-                sh 'terraform fmt'
+                sh 'terraform fmt'   
+            }
+        }
+        stage('terraform plan') {
+            steps {
                 sh 'terraform plan'
-                sh 'hostname'
-                sh 'whoami'
+                
+            }
+        }
+        stage('terraform apply') {
+            steps {
+                sh 'terraform apply --auto-approve'
                 
             }
         }
