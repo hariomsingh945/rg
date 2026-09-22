@@ -6,18 +6,11 @@ pipeline {
     stages {
         stage('terraform fmt') {
             steps {
-                sh 'terraform fmt'
-            }
-        }
-        stage('terraform init') {
-            steps {
                 sh 'terraform init'
+                sh 'terraform fmt'
+                sh 'terraform validate'
+                
             }
         }
-        stage('terraform validate') {
-            steps {
-                sh 'terraform validate'
-    }
-}
     }
 }
