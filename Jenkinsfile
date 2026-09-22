@@ -2,6 +2,14 @@ pipeline {
     agent any
 
     stages {
+        stage('test squence of pipeline') {
+            steps {
+                echo 'Step 1'
+                sh 'exit 1'
+                echo 'Step 3'
+              }
+    }
+
         stage('azure-login') {
             steps {
                 sh 'az login --service-principal --username 0c24aa36-553a-4bdd-9b2f-ad2b5b6759ef --password fi18Q~HoIsvTlhTORYu-kwmD7ywSYaL~6XTkHaLB --tenant 5b0a096e-00db-4f9f-b16b-f0f9f22167d6'
