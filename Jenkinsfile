@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'swarn'
-    }
+    agent any
 
     parameters {
         string(
