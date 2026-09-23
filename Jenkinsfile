@@ -17,6 +17,12 @@ pipeline {
             choices: ['DEV', 'QA', 'PROD'],
             description: 'Select deployment environment'
         )
+        password(
+            name: 'APP_PASSWORD',
+            defaultValue: '',
+            description: 'Enter application password'
+        )
+
 
 
     }
