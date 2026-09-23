@@ -12,6 +12,12 @@ pipeline {
             defaultValue: false,
             description: 'Do you want to deploy?'
         )
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'QA', 'PROD'],
+            description: 'Select deployment environment'
+        )
+
 
     }
 
