@@ -1,22 +1,16 @@
 pipeline {
     agent any
-    environment {
-        AZURE_CREDS = credentials('azure-svc-azure-service-principal')
-        HARI = 'hari'
-        SANDEEP='sandeep'
-        KAAVYA = "kaavya"
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'PROD'],
+            description: 'Select deployment environment'
+        )
     }
 
-    stages {
-        stage('test squence of pipeline') {
-            steps {
-                echo 'Step 1'
-                echo 'step 2'
-                echo 'Step 3'
-                echo "$KAAVYA"
-                echo '$SANDEEP'
-                echo '$HARI'
-              }
+    
+    environment {
+        AZURE_CREDS = credentials('azure-svc-azure-service-principal')
     }
 
         stage('azure-login') {
@@ -39,6 +33,11 @@ pipeline {
             }
         }
         stage('terraform apply') {
+            when {
+                expression {
+                  params.ENVIRONMENT == 'PROD'
+        }
+    }
             steps {
                 sh 'terraform apply --auto-approve'
                 
