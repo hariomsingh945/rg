@@ -7,6 +7,12 @@ pipeline {
             defaultValue: 'myapp',
             description: 'Enter application name'
         )
+        booleanParam(
+            name: 'DEPLOY',
+            defaultValue: false,
+            description: 'Do you want to deploy?'
+        )
+
     }
 
     stages {
