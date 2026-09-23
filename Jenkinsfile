@@ -1,70 +1,92 @@
 pipeline {
-    agent any
+    agent {
+        label 'swarn'
+    }
 
     parameters {
 
-        // 1. String parameter
+        // 1. String
         string(
-            name: 'APP_NAME',
-            defaultValue: 'myapp',
-            description: 'Enter application name'
+            name: 'RESOURCE_NAME',
+            defaultValue: 'my-vm',
+            description: 'Enter infrastructure resource name'
         )
 
-        // 2. Boolean parameter
+        // 2. Boolean
         booleanParam(
-            name: 'DEPLOY',
+            name: 'TERRAFORM_APPLY',
             defaultValue: false,
-            description: 'Do you want to deploy?'
+            description: 'Run Terraform apply?'
         )
 
-        // 3. Choice parameter
+        // 3. Choice
         choice(
             name: 'ENVIRONMENT',
             choices: ['DEV', 'QA', 'PROD'],
-            description: 'Select deployment environment'
+            description: 'Select infrastructure environment'
         )
 
-        // 4. Text parameter
+        // 4. Text
         text(
-            name: 'RELEASE_NOTES',
-            defaultValue: 'Initial release',
-            description: 'Enter release notes'
+            name: 'CHANGE_DETAILS',
+            defaultValue: 'Create infrastructure for application',
+            description: 'Enter infrastructure change details'
         )
 
-        // 5. Password parameter
+        // 5. Password
         password(
-            name: 'DEPLOY_PASSWORD',
+            name: 'INFRA_PASSWORD',
             defaultValue: '',
-            description: 'Enter deployment password'
+            description: 'Enter lab infrastructure password'
         )
     }
 
     stages {
 
-        stage('Show Parameters') {
+        stage('Validate Parameters') {
             steps {
-                echo "================================"
-                echo "Application : ${params.APP_NAME}"
-                echo "Environment : ${params.ENVIRONMENT}"
-                echo "Deploy      : ${params.DEPLOY}"
-                echo "Release Notes:"
-                echo "${params.RELEASE_NOTES}"
-                echo "================================"
-                echo "Deployment password received"
+                echo "======================================"
+                echo "Resource Name : ${params.RESOURCE_NAME}"
+                echo "Environment   : ${params.ENVIRONMENT}"
+                echo "Terraform Apply: ${params.TERRAFORM_APPLY}"
+                echo "Change Details:"
+                echo "${params.CHANGE_DETAILS}"
+                echo "======================================"
+                echo "Infrastructure password received"
             }
         }
 
-        stage('Deployment') {
+        stage('Terraform Plan') {
+            steps {
+                echo "Running Terraform Plan..."
+                echo "Environment: ${params.ENVIRONMENT}"
+                echo "Resource: ${params.RESOURCE_NAME}"
+
+                // Real project mein:
+                // sh 'terraform init'
+                // sh 'terraform plan'
+            }
+        }
+
+        stage('Terraform Apply') {
             steps {
                 script {
+                    if (params.TERRAFORM_APPLY) {
 
-                    if (params.DEPLOY) {
-                        echo "Starting deployment..."
-                        echo "Application: ${params.APP_NAME}"
+                        echo "Terraform Apply started..."
+                        echo "Creating infrastructure..."
+                        echo "Resource: ${params.RESOURCE_NAME}"
                         echo "Environment: ${params.ENVIRONMENT}"
-                        echo "Deployment completed"
+
+                        // Real project mein:
+                        // sh 'terraform apply -auto-approve'
+
+                        echo "Infrastructure deployment completed"
+
                     } else {
-                        echo "Deployment skipped"
+
+                        echo "Terraform Apply skipped"
+                        echo "Only Terraform Plan was requested"
                     }
                 }
             }
