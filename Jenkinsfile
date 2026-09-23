@@ -1,13 +1,21 @@
 pipeline {
-    agent any
+    agent {
+        label 'swarn'
+    }
+
+    parameters {
+        string(
+            name: 'APP_NAME',
+            defaultValue: 'myapp',
+            description: 'Enter application name'
+        )
+    }
 
     stages {
-
-        stage('Terraform Format') {
+        stage('Parameter-Demo') {
             steps {
-                sh 'terraform fmt -check'
+                echo "Application Name: ${params.APP_NAME}"
             }
         }
-
     }
 }
