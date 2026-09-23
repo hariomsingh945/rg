@@ -1,5 +1,7 @@
+```groovy
 pipeline {
     agent any
+
     parameters {
         choice(
             name: 'ENVIRONMENT',
@@ -8,10 +10,11 @@ pipeline {
         )
     }
 
-    
     environment {
         AZURE_CREDS = credentials('azure-svc-azure-service-principal')
     }
+
+    stages {
 
         stage('azure-login') {
             steps {
@@ -20,30 +23,32 @@ pipeline {
                 sh 'az account show'
             }
         }
+
         stage('terraform init') {
             steps {
                 sh 'terraform init'
-                sh 'terraform fmt'   
+                sh 'terraform fmt'
             }
         }
+
         stage('terraform plan') {
             steps {
                 sh 'terraform plan'
-                
             }
         }
+
         stage('terraform apply') {
             when {
                 expression {
-                  params.ENVIRONMENT == 'PROD'
-        }
-    }
+                    params.ENVIRONMENT == 'PROD'
+                }
+            }
             steps {
                 sh 'terraform apply --auto-approve'
-                
             }
         }
     }
+
     post {
         success {
             echo 'SUCCESS: Pipeline completed successfully'
@@ -52,6 +57,7 @@ pipeline {
         failure {
             echo 'FAILURE: Pipeline failed'
         }
+
         aborted {
             echo 'ABORTED: Build was stopped'
         }
@@ -62,3 +68,4 @@ pipeline {
         // }
     }
 }
+```
