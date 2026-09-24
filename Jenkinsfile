@@ -44,6 +44,10 @@ pipeline {
 
         stage('terraform apply') {
             when {
+                 branch 'main'
+                }
+
+            when {
                 expression {
                     params.ENVIRONMENT == 'PROD'
                 }
