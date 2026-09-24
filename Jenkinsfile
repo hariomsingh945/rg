@@ -31,6 +31,12 @@ pipeline {
         }
 
         stage('terraform plan') {
+            when {
+                expression {
+                    params.ENVIRONMENT == 'DEV'
+                }
+            }
+
             steps {
                 sh 'terraform plan'
             }
