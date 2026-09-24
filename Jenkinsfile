@@ -42,13 +42,13 @@ pipeline {
         }
         stage('terraform apply') {
             when {
+              allOf {
                  branch 'main'
-                }
-            when {
-                expression {
-                    params.ENVIRONMENT == 'PROD'
-                }
+              expression {
+                params.ENVIRONMENT == 'PROD'
             }
+        }
+    }
             steps {
                 sh 'terraform apply --auto-approve'
             }
