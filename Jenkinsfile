@@ -36,17 +36,14 @@ pipeline {
                     params.ENVIRONMENT == 'DEV'
                 }
             }
-
             steps {
                 sh 'terraform plan'
             }
         }
-
         stage('terraform apply') {
             when {
                  branch 'main'
                 }
-
             when {
                 expression {
                     params.ENVIRONMENT == 'PROD'
